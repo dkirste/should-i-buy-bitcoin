@@ -67,7 +67,7 @@ def extract_and_reformat(api_json):
 
 
 def setup_influxwriter():
-    token = "lQqjs8ps4htbBPYhegUDytN6K4CjDe07W0x2Fu5bwZv7D0dyw7BwYErcki9syacF7Pqnzm0b85-VSS7mFZ-_Ww=="
+    token = "q-gAX6R9BYtUHGko0H1_5xnRsPG6u_p99GNoyOmVWtPxVACiKSLy8v3u48Lcm0CS3j0SjcfW06o1Oki0zzGLgQ=="
     org = "sibb"
     url = "http://127.0.0.1:8086"
 
@@ -369,10 +369,16 @@ def send_data_to_influxdb(ind, influx_writer):
     # SEND DATA TO INFLUX
     influx_writer.write(bucket="tradingviewdata", org="sibb", record=points)
 
-
-if __name__ == "__main__":
+def try_runner():
     influx_writer = setup_influxwriter()
     while True:
         indi = get_all_indicators("BINANCE", "BTCUSDT")
         send_data_to_influxdb(indi, influx_writer)
         time.sleep(5)
+
+if __name__ == "__main__":
+    while True:
+        try:
+            try_runner()
+        except:
+            print(f"Failed to fetch or send at {time.asctime()}")
