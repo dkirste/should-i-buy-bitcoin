@@ -67,7 +67,7 @@ def extract_and_reformat(api_json):
 
 
 def setup_influxwriter():
-    token = "q-gAX6R9BYtUHGko0H1_5xnRsPG6u_p99GNoyOmVWtPxVACiKSLy8v3u48Lcm0CS3j0SjcfW06o1Oki0zzGLgQ=="
+    token = "HMUC1qMtr4Ms6T69vMa7vIgs0V4fLvfupYVHYKR6_J2UMfsayPfiX_4Tcj4naCq4tQ3F5aV4VkJhYFNJdtEGJQ=="
     org = "sibb"
     url = "http://127.0.0.1:8086"
 
@@ -101,13 +101,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.RSI(ind['RSI'], ind['RSI[1]'])
         signal = strToNum(res)
         p = (
-            Point("rsi-signal")
+            Point("rsi_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("rsi-value")
+            Point("rsi_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['RSI'])
         )
@@ -119,13 +119,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Stoch(ind['Stoch.K'], ind['Stoch.D'], ind['Stoch.K[1]'], ind['Stoch.D[1]'])
         signal = strToNum(res)
         p = (
-            Point("stoch-k-signal")
+            Point("stoch_k_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("stoch-k-value")
+            Point("stoch_k_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Stoch.K'])
         )
@@ -136,13 +136,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.CCI20(ind['CCI20'], ind['CCI20[1]'])
         signal = strToNum(res)
         p = (
-            Point("cci-signal")
+            Point("cci_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("cci-value")
+            Point("cci_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['CCI20'])
         )
@@ -154,13 +154,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.ADX(ind['ADX'], ind['ADX+DI'], ind['ADX-DI'], ind['ADX+DI[1]'], ind['ADX-DI[1]'])
         signal = strToNum(res)
         p = (
-            Point("adx-signal")
+            Point("adx_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("adx-value")
+            Point("adx_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['ADX'])
         )
@@ -171,13 +171,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.AO(ind['AO'], ind['AO[1]'], ind['AO[2]'])
         signal = strToNum(res)
         p = (
-            Point("ao-signal")
+            Point("ao_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("ao-value")
+            Point("ao_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['AO'])
         )
@@ -188,13 +188,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Mom(ind['Mom'], ind['Mom[1]'])
         signal = strToNum(res)
         p = (
-            Point("mom-signal")
+            Point("mom_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("mom-value")
+            Point("mom_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Mom'])
         )
@@ -205,13 +205,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.MACD(ind['MACD.macd'], ind['MACD.signal'])
         signal = strToNum(res)
         p = (
-            Point("macd-signal")
+            Point("macd_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("macd-value")
+            Point("macd_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['MACD.macd'])
         )
@@ -222,13 +222,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.Stoch.RSI'])
         signal = strToNum(res)
         p = (
-            Point("stoch-rsi-signal")
+            Point("stoch_rsi_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("stoch-rsi-value")
+            Point("stoch_rsi_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.Stoch.RSI'])
         )
@@ -239,13 +239,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.WR'])
         signal = strToNum(res)
         p = (
-            Point("wr-signal")
+            Point("wr_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("wr-value")
+            Point("wr_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.WR'])
         )
@@ -256,13 +256,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.BBPower'])
         signal = strToNum(res)
         p = (
-            Point("bbp-signal")
+            Point("bbp_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("bbp-value")
+            Point("bbp_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.BBPower'])
         )
@@ -273,13 +273,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.UO'])
         signal = strToNum(res)
         p = (
-            Point("uo-signal")
+            Point("uo_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("uo-value")
+            Point("uo_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.UO'])
         )
@@ -294,13 +294,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.MA(ind[ma], ind['close'])
         signal = strToNum(res)
         p = (
-            Point(ma_name + "-signal")
+            Point(ma_name + "_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point(ma_name + "-value")
+            Point(ma_name + "_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind[ma])
         )
@@ -312,13 +312,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.Ichimoku'])
         signal = strToNum(res)
         p = (
-            Point("ichimoku-signal")
+            Point("ichimoku_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("ichimoku-value")
+            Point("ichimoku_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.Ichimoku'])
         )
@@ -329,13 +329,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.VWMA'])
         signal = strToNum(res)
         p = (
-            Point("vwma-signal")
+            Point("vwma_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("vwma-value")
+            Point("vwma_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.VWMA'])
         )
@@ -346,13 +346,13 @@ def send_data_to_influxdb(ind, influx_writer):
         res = Compute.Simple(ind['Rec.HullMA9'])
         signal = strToNum(res)
         p = (
-            Point("hullma9-signal")
+            Point("hullma9_signal")
                 .tag("pair", "btcusdt")
                 .field("field1", signal)
         )
         points.append(p)
         p = (
-            Point("hullma9-value")
+            Point("hullma9_value")
                 .tag("pair", "btcusdt")
                 .field("field1", ind['Rec.HullMA9'])
         )
@@ -360,7 +360,7 @@ def send_data_to_influxdb(ind, influx_writer):
 
     # Add close point
     p = (
-        Point("price-value")
+        Point("price_value")
             .tag("pair", "btcusdt")
             .field("field1", ind['close'])
     )
