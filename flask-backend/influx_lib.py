@@ -2,9 +2,9 @@ import influxdb_client, os, time, json
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 
 def setup_influx_query():
-    token = "q-gAX6R9BYtUHGko0H1_5xnRsPG6u_p99GNoyOmVWtPxVACiKSLy8v3u48Lcm0CS3j0SjcfW06o1Oki0zzGLgQ=="
+    token = "eWwqKvkvyDCGRL_8R9Em_asafNtteiGKHM_Y0Edk8ajX0TMMolqgehQkxJqWbm_KvOlPT8AylgST2nePq_b5Zg=="
     org = "sibb"
-    url = "http://127.0.0.1:8086"
+    url = "http://192.168.2.205:8086"
 
     client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
@@ -17,13 +17,11 @@ def transform_data_structure(influx_result):
     index = {}
     for record in records:
         if record['_measurement'] in new_result.keys():
-            new_result[record['_measurement']][index[record['_measurement']]] = {'time': record['_time'],'value': record['_value']}
-            index[record['_measurement']] += 1
+            new_result[record['_measurement']].append({'time': record['_time'],'value': record['_value']})
+
         else:
-            new_result[record['_measurement']] = {}
-            index[record['_measurement']] = 0
-            new_result[record['_measurement']][index[record['_measurement']]] = {'time': record['_time'], 'value': record['_value']}
-            index[record['_measurement']] += 1
+            new_result[record['_measurement']] = []
+            new_result[record['_measurement']].append({'time': record['_time'], 'value': record['_value']})
 
 
     return new_result
