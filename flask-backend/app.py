@@ -6,15 +6,17 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 
 
-@app.route('/bitcoin')
+@app.route('/bitcoin/<measurement>')
 @cross_origin()
-def hello_world():  # put application's code here
+def bitcoin_price_value(measurement):  # put application's code here
+    # Create influx query api
     query_api = influx_lib.setup_influx_query()
+
     # get latest results of the api
-    query = '''
+    query = f'''
             from(bucket: "tradingviewdata")
               |> range(start: -1h)
-              |> filter(fn: (r) => r["_measurement"] == "price_value")
+              |> filter(fn: (r) => r["_measurement"] == "{measurement}")
               |> filter(fn: (r) => r["_field"] == "field1")
               |> filter(fn: (r) => r["pair"] == "btcusdt")
           '''
