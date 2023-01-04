@@ -35,7 +35,7 @@ class Chart extends React.Component {
     }
 
     timeSeriesChart = () => {
-        return (<ResponsiveContainer width="80%" height={400} className="center">
+        return (<ResponsiveContainer height={300} className="center">
                 <AreaChart data={this.state.data.price_value}>
                     <defs>
                         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">

@@ -1,6 +1,7 @@
-import ShowChartsButton from "./components/buybutton";
+import ShowChartsButton from "./components/showchartsbutton";
 import { useState } from 'react'
 import Chart from "./components/chart";
+import ResultPanel from "./components/result";
 
 
 
@@ -18,7 +19,7 @@ function App() {
             <body>
             <h1 id="centerText">Should I buy Bitcoin?</h1>
             {state === 'unauthorized' && <ShowChartsButton showCharts={triggerShowChartsState}/>}
-            {state === 'authorized' && <Chart />}
+            {state === 'authorized' && <ResultPanel />}
             </body>
     );
 }
