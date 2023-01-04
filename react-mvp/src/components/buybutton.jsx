@@ -1,5 +1,4 @@
-import {format, parseISO} from "date-fns";
-import React, {useEffect, useState} from "react";
+import React, {Component, useEffect, useState} from "react";
 import "./chart.css"
 import {
     ResponsiveContainer,
@@ -9,32 +8,36 @@ import {
     XAxis,
     YAxis, Tooltip,
 } from 'recharts';
+import {format, parseISO} from "date-fns";
 
 
-export default function Chart() {
+class BuyButton extends React.Component {
 
-    const [data, setData] = useState({"price_value":[{"time": "2022-12-27T14:39:38.580057+00:00", "value": "16761.06"}, {"time": "2022-12-27T14:38:38.580057+00:00", "value": "16760.06"}]});
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: {"price_value":[{"time": "2022-12-27T14:39:38.580057+00:00", "value": "16761.06"}, {"time": "2022-12-27T14:38:38.580057+00:00", "value": "16760.06"}]}
+            }
+    }
 
-    useEffect(() => {
+
+    componentDidMount() {
         const fetchDatas = async () => {
 
             const res = await fetch("http://127.0.0.1:5000/bitcoin/price_value");
             const resjson = await res.json();
             console.log(resjson);
-            setData(resjson)
+            this.setState({data: resjson})
 
             //setData(data)
             //setdata(data?.data);
         };
         fetchDatas();
-    }, []);
+    }
 
-
-
-
-    const timeSeriesChart = (
-        <ResponsiveContainer width="80%" height={400} className="center">
-            <AreaChart data={data.price_value}>
+    timeSeriesChart = () => {
+        return (<ResponsiveContainer width="80%" height={400} className="center">
+            <AreaChart data={this.state.data.price_value}>
                 <defs>
                     <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="#FF9900" stopOpacity={0.4} />
@@ -72,12 +75,16 @@ export default function Chart() {
                 <CartesianGrid opacity={0.1} vertical={false} />
             </AreaChart>
         </ResponsiveContainer>
-    );
+    );}
 
 
-    return (
+
+    render() {
+        return (
         <div className="App">
-            {timeSeriesChart}
+            {this.timeSeriesChart()}
         </div>
     );
+    }
 }
+export default BuyButton
