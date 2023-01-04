@@ -16,8 +16,8 @@ function App() {
 
     return (
             <body>
-            <h1 id="centerText">Should I buy Bitcoin? -> YES</h1>
-            <ShowChartsButton showCharts={triggerShowChartsState}/>
+            <h1 id="centerText">Should I buy Bitcoin?</h1>
+            {state === 'unauthorized' && <ShowChartsButton showCharts={triggerShowChartsState}/>}
             {state === 'authorized' && <Chart />}
             </body>
     );
