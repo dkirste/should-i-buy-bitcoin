@@ -4,6 +4,7 @@ import Chart from "./components/chart";
 import ResultPanel from "./components/result";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import {DropdownButton, Dropdown} from "react-bootstrap";
 
 
 
@@ -11,29 +12,39 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 function App() {
 
-    const [state, setState] = useState('unauthorized')
+    const [selectedCoin, setSelectedCoin] = useState('Bitcoin')
+    const [authStatus, setAuthStatus] = useState('unauthorized')
 
 
     const triggerShowChartsState = () => {
-        console.log("Setting state!")
-        setState('authorized')
+        console.log("Setting state!");
+
+        setAuthStatus('authorized');
+    }
+
+    const handleSelect = (e) => {
+        setSelectedCoin(e)
     }
 
     return (
             <body>
             <h1 id="centerText">Should I buy <div className="btn-group">
-                <button className="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Bitcoin
-                </button>
-                <div className="dropdown-menu">
-                    <a className="dropdown-item">Bitcoin</a>
-                    <a className="dropdown-item">Ethereum</a>
-                    <a className="dropdown-item">Atom</a>
-                </div>
+                <DropdownButton
+                    alignRight
+                    title={selectedCoin}
+                    id="coin-dropdown"
+                    variant="secondary"
+                    size="lg"
+                    onSelect={handleSelect}
+                >
+                    <Dropdown.Item eventKey="Bitcoin">Bitcoin</Dropdown.Item>
+                    <Dropdown.Item eventKey="Ehereum">Ethereum</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item eventKey="Cosmos">Cosmos</Dropdown.Item>
+                </DropdownButton>
             </div>?</h1>
-            {state === 'unauthorized' && <ShowChartsButton showCharts={triggerShowChartsState}/>}
-            {state === 'authorized' && <ResultPanel />}
+            {authStatus === 'unauthorized' && <ShowChartsButton showCharts={triggerShowChartsState}/>}
+            {authStatus === 'authorized' && <ResultPanel />}
             </body>
     );
 }
