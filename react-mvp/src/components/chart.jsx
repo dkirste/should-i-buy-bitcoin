@@ -17,7 +17,7 @@ class Chart extends React.Component {
         this.selectedCoin = props.selectedCoin.selectedCoin.toLowerCase()
         this.metric = this.props.metric
         this.state = {
-            data: {price_value:[{"time": "2022-12-27T14:39:38.580057+00:00", "value": "16761.06"}, {"time": "2022-12-27T14:38:38.580057+00:00", "value": "16760.06"}]}
+            data: {}
         }
     }
 
@@ -36,9 +36,18 @@ class Chart extends React.Component {
         fetchDatas();
     }
 
+    getData = () => {
+        for (const [key, value] of Object.entries(this.state.data)) {
+            if (key === this.metric) {
+                return value
+            }
+        }
+    }
+
     timeSeriesChart = () => {
+        this.getData()
         return (<ResponsiveContainer height={300} className="center">
-                <AreaChart data={this.state.data.price_value}>
+                <AreaChart data={this.getData()}>
                     <defs>
                         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="0%" stopColor="#FF9900" stopOpacity={0.4} />
@@ -68,7 +77,7 @@ class Chart extends React.Component {
                         tickLine={false}
                         tickCount={8}
                         domain={["dataMin", "dataMax"]}
-                        tickFormatter={(number) => `$${number.toFixed(0)}`}
+                        tickFormatter={(number) => `${number.toFixed(0)}`}
                     />
 
                     <Tooltip/>
