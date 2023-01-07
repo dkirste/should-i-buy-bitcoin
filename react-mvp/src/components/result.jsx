@@ -4,7 +4,8 @@ import Chart from "./chart";
 
 
 
-function ResultPanel(props) {
+function ResultPanel(selectedCoin) {
+    console.log(selectedCoin)
 
 
     return (
@@ -20,7 +21,7 @@ function ResultPanel(props) {
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">Bitcoin Price Development</h5>
-                            <Chart />
+                            <Chart selectedCoin={selectedCoin} metric="price_value"/>
                             <p className="card-text">The most recent price development of bitcoin.</p>
                         </div>
                     </div>
@@ -28,9 +29,9 @@ function ResultPanel(props) {
                 <div className="col-sm-6">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Bitcoin RSA</h5>
-                            <Chart />
-                            <p className="card-text">RSA of bitcoin</p>
+                            <h5 className="card-title">Bitcoin RSI</h5>
+                            <Chart selectedCoin={selectedCoin} metric="rsi_value"/>
+                            <p className="card-text">RSI of bitcoin</p>
                         </div>
                     </div>
                 </div>

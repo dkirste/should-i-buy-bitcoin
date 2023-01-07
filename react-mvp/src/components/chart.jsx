@@ -14,16 +14,18 @@ class Chart extends React.Component {
 
     constructor(props) {
         super(props);
+        this.selectedCoin = props.selectedCoin.selectedCoin.toLowerCase()
+        this.metric = this.props.metric
         this.state = {
-            data: {"price_value":[{"time": "2022-12-27T14:39:38.580057+00:00", "value": "16761.06"}, {"time": "2022-12-27T14:38:38.580057+00:00", "value": "16760.06"}]}
+            data: {price_value:[{"time": "2022-12-27T14:39:38.580057+00:00", "value": "16761.06"}, {"time": "2022-12-27T14:38:38.580057+00:00", "value": "16760.06"}]}
         }
     }
 
 
     componentDidMount() {
         const fetchDatas = async () => {
-
-            const res = await fetch("http://127.0.0.1:5000/bitcoin/price_value");
+            console.log("http://127.0.0.1:5000/"+this.selectedCoin+"/"+this.metric);
+            const res = await fetch("http://127.0.0.1:5000/"+this.selectedCoin+"/"+this.metric);
             const resjson = await res.json();
             console.log(resjson);
             this.setState({data: resjson})

@@ -44,7 +44,7 @@ function App() {
                 </DropdownButton>
             </div>?</h1>
             {authStatus === 'unauthorized' && <ShowChartsButton showCharts={triggerShowChartsState}/>}
-            {authStatus === 'authorized' && <ResultPanel />}
+            {authStatus === 'authorized' && <ResultPanel selectedCoin={selectedCoin}/>}
             </body>
     );
 }
