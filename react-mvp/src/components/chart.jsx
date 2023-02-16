@@ -14,18 +14,19 @@ class Chart extends React.Component {
 
     constructor(props) {
         super(props);
-        this.selectedCoin = props.selectedCoin.selectedCoin.toLowerCase()
+        this.selectedCoin = props.selectedCoin.toLowerCase()
         this.metric = this.props.metric
         this.state = {
             data: {}
         }
+        console.log(props.sessionId)
+        this.sessionId = this.props.sessionId
     }
 
 
     componentDidMount() {
         const fetchDatas = async () => {
-            console.log("http://127.0.0.1:5000/"+this.selectedCoin+"/"+this.metric);
-            const res = await fetch("http://127.0.0.1:5000/"+this.selectedCoin+"/"+this.metric);
+            const res = await fetch("http://127.0.0.1:5000/"+this.selectedCoin+"/"+this.metric+"/"+this.sessionId);
             const resjson = await res.json();
             console.log(resjson);
             this.setState({data: resjson})
@@ -60,11 +61,12 @@ class Chart extends React.Component {
 
                     <XAxis
                         dataKey="time"
-                        axisLine={false}
+                        axisLine={true}
                         tickLine={false}
                         tickFormatter={(str) => {
                             const date = parseISO(str);
-                            if (date.getMinutes() % 10 === 0) {
+                            if (parseInt((date.getTime() / 1000).toFixed(0)) % 600 < 10) {
+                                console.log(parseInt((date.getTime() / 1000).toFixed(0)))
                                 return format(date, "MMM, d, HH:MM");
                             }
                             return "";
@@ -73,8 +75,8 @@ class Chart extends React.Component {
 
                     <YAxis
                         datakey="value"
-                        axisLine={false}
-                        tickLine={false}
+                        axisLine={true}
+                        tickLine={true}
                         tickCount={8}
                         domain={["dataMin", "dataMax"]}
                         tickFormatter={(number) => `${number.toFixed(0)}`}

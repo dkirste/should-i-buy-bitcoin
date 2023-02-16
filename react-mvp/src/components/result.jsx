@@ -4,8 +4,9 @@ import Chart from "./chart";
 
 
 
-function ResultPanel(selectedCoin) {
-    console.log(selectedCoin)
+function ResultPanel(props) {
+    console.log(props.selectedCoin)
+    console.log(props.sessionId)
 
 
     return (
@@ -21,7 +22,7 @@ function ResultPanel(selectedCoin) {
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">Bitcoin Price Development</h5>
-                            <Chart selectedCoin={selectedCoin} metric="price_value"/>
+                            <Chart selectedCoin={props.selectedCoin} sessionId={props.sessionId} metric="price_value"/>
                             <p className="card-text">The most recent price development of bitcoin.</p>
                         </div>
                     </div>
@@ -30,7 +31,7 @@ function ResultPanel(selectedCoin) {
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">Relative Strength Index (RSI)</h5>
-                            <Chart selectedCoin={selectedCoin} metric="rsi_value"/>
+                            <Chart selectedCoin={props.selectedCoin} sessionId={props.sessionId} metric="rsi_value"/>
                             <p className="card-text">The relative strength index (RSI) is a momentum indicator used in technical analysis. RSI measures the speed and magnitude of a security's recent price changes to evaluate overvalued or undervalued conditions in the price of that security.</p>
                         </div>
                     </div>
@@ -41,7 +42,7 @@ function ResultPanel(selectedCoin) {
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">Stochastic %K</h5>
-                            <Chart selectedCoin={selectedCoin} metric="stoch_k_value"/>
+                            <Chart selectedCoin={props.selectedCoin} sessionId={props.sessionId} metric="stoch_k_value"/>
                             <p className="card-text">A stochastic oscillator is a momentum indicator comparing a particular closing price of a security to a range of its prices over a certain period of time. The sensitivity of the oscillator to market movements is reducible by adjusting that time period or by taking a moving average of the result. It is used to generate overbought and oversold trading signals, utilizing a 0–100 bounded range of values.</p>
                         </div>
                     </div>
@@ -50,7 +51,7 @@ function ResultPanel(selectedCoin) {
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">MACD Level</h5>
-                            <Chart selectedCoin={selectedCoin} metric="macd_value"/>
+                            <Chart selectedCoin={props.selectedCoin} sessionId={props.sessionId} metric="macd_value"/>
                             <p className="card-text">Moving average convergence/divergence (MACD, or MAC-D) is a trend-following momentum indicator that shows the relationship between two exponential moving averages (EMAs) of a security’s price. The MACD line is calculated by subtracting the 26-period EMA from the 12-period EMA.</p>
                         </div>
                     </div>
