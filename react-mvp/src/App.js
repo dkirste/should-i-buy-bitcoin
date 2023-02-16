@@ -1,5 +1,5 @@
 import ShowChartsButton from "./components/showchartsbutton";
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import ResultPanel from "./components/result";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
@@ -14,16 +14,18 @@ import PaymentButton from "./components/paymentbutton"
 function App() {
 
     const [selectedCoin, setSelectedCoin] = useState('Bitcoin')
-    const [authStatus, setAuthStatus] = useState('unauthorized')
+    const [paymentStatus, setPaymentStatus] = useState('init')
     const queryParameters = new URLSearchParams(window.location.search)
 
-
+    useEffect(() => {
+        // Update the document title using the browser API
+        const err = updatePaymentStatus();
+    });
 
 
     const triggerShowChartsState = () => {
         console.log("Setting state!");
-
-        setAuthStatus('authorized');
+        setPaymentStatus('authorized');
     }
 
     const handleSelect = (e) => {
@@ -31,27 +33,34 @@ function App() {
     }
 
     const triggerPayment = async () => {
-        const sessionId = await retrievNewSession()
+        const sessionId = await retrieveNewSession()
         console.log(sessionId)
         window.location.href = sessionId.url
     }
 
-    const retrievNewSession = async () => {
-        const res = await fetch("http://127.0.0.1:5000/checkout");
-        const resjson = await res.json();
-        return resjson
+    const retrieveNewSession = async () => {
+        const res = await fetch("http://127.0.0.1:5000/checkout/"+selectedCoin);
+        return await res.json();
     };
 
-    const checkPayment = () => {
-        const paymentStatus = queryParameters.get("status")
-        console.log(paymentStatus)
-        if (paymentStatus === 'success') {
-            return 'success'
+    const updatePaymentStatus = async () => {
+        const sessionId = queryParameters.get("id")
+        let status = 'unpaid'
+        if (sessionId !== undefined) {
+            const res = await fetch("http://127.0.0.1:5000/checkpayment/"+sessionId);
+            const resString = await res.json()
+            console.log(resString)
+            status = resString.status
+        }
+
+        if (status === 'paid') {
+            setPaymentStatus('paid')
         }
         else {
-            return 'cancel'
+            setPaymentStatus('unpaid')
         }
     }
+
 
     const getUrlSessionId = () => {
         const sessionId = queryParameters.get("id")
@@ -76,12 +85,11 @@ function App() {
                     <Dropdown.Item eventKey="Cosmos">Cosmos</Dropdown.Item>
                 </DropdownButton>
             </div>?</h1>
-            {checkPayment() !== 'success' && <div>
-                <ShowChartsButton showCharts={triggerShowChartsState}/>
-                <PaymentButton triggerPayment={triggerPayment}/>
+            {paymentStatus === 'unpaid' && <div>
+                <PaymentButton selectedCoin={selectedCoin} triggerPayment={triggerPayment}/>
             </div>
 }
-            {checkPayment() === 'success' && <ResultPanel selectedCoin={selectedCoin} sessionId={getUrlSessionId()}/>}
+            {paymentStatus === 'paid' && <ResultPanel selectedCoin={selectedCoin} sessionId={getUrlSessionId()}/>}
             </body>
     );
 }
