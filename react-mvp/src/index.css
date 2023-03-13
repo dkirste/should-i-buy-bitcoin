@@ -18,11 +18,31 @@ code {
     monospace;
 }
 
-#centerText {
-    color: black;
-    font-size: 32px;
+#shouldibuytext {
+    color: white;
+    font-size: 76px;
     font-weight: bold;
     text-align: center;
-    margin: 50px;
 }
 
+#shouldibuysubtext {
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+
+#mainpage {
+    background-color: black;
+    padding: 50px;
+    opacity: 0.85;
+}
+
+#buttondiv {
+    padding: 25px;
+}
+
+#dropdownbutton {
+    margin: auto;
+    margin: 25px;
+
+}

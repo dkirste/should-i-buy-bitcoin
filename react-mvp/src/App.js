@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import ResultPanel from "./components/result";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import {DropdownButton, Dropdown} from "react-bootstrap";
+import {DropdownButton, Dropdown, Container} from "react-bootstrap";
 import PaymentButton from "./components/paymentbutton"
 
 
@@ -46,6 +46,7 @@ function App() {
     const updatePaymentStatus = async () => {
         const sessionId = queryParameters.get("id")
         let status = 'unpaid'
+        setPaymentStatus('unpaid')
         if (sessionId !== undefined) {
             const res = await fetch("http://127.0.0.1:5000/checkpayment/"+sessionId);
             const resString = await res.json()
@@ -70,26 +71,34 @@ function App() {
 
     return (
             <body>
-            <h1 id="centerText">Should I buy <div className="btn-group">
-                <DropdownButton
-                    alignRight
-                    title={selectedCoin}
-                    id="coin-dropdown"
-                    variant="secondary"
-                    size="lg"
-                    onSelect={handleSelect}
-                >
-                    <Dropdown.Item eventKey="Bitcoin">Bitcoin</Dropdown.Item>
-                    <Dropdown.Item eventKey="Ehereum">Ethereum</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item eventKey="Cosmos">Cosmos</Dropdown.Item>
-                </DropdownButton>
-            </div>?</h1>
-            {paymentStatus === 'unpaid' && <div>
-                <PaymentButton selectedCoin={selectedCoin} triggerPayment={triggerPayment}/>
+            <div id="mainpage">
+                <div >
+                    <p id="shouldibuytext">Should I Buy Now?</p>
+                    <p id="shouldibuysubtext">Find out if it is the right moment to buy a Cryptocurrency without looking into all the technical signals by yourself!</p>
+                </div>
+                <div id="buttondiv" className="d-flex justify-content-center">
+                    <div className="btn-group">
+                        <DropdownButton
+                            alignRight
+                            title={selectedCoin}
+                            id="coin-dropdown"
+                            variant="secondary"
+                            size="lg"
+                            onSelect={handleSelect}
+                        >
+                            <Dropdown.Item eventKey="Bitcoin">Bitcoin</Dropdown.Item>
+                            <Dropdown.Item eventKey="Ehereum">Ethereum</Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item eventKey="Cosmos">Cosmos</Dropdown.Item>
+                        </DropdownButton>
+                    </div>
+                </div>
+                {paymentStatus === 'unpaid' && <div>
+                    <PaymentButton selectedCoin={selectedCoin} triggerPayment={triggerPayment}/>
+                </div>
+                }
+                {paymentStatus === 'paid' && <ResultPanel selectedCoin={selectedCoin} sessionId={getUrlSessionId()}/>}
             </div>
-}
-            {paymentStatus === 'paid' && <ResultPanel selectedCoin={selectedCoin} sessionId={getUrlSessionId()}/>}
             </body>
     );
 }
