@@ -8,13 +8,13 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import MKTypography from "components/MKTypography";
 
 // Images
-import logoCT from "assets/images/logo-ct-dark.png";
+import logoCT from "assets/sibb-images/sibb_logo.png";
 
 const date = new Date().getFullYear();
 
 export default {
   brand: {
-    name: "Material Kit 2",
+    name: "Should I Buy Bitcoin?",
     image: logoCT,
     route: "/",
   },
@@ -77,13 +77,13 @@ export default {
       All rights reserved. Copyright &copy; {date} Material Kit by{" "}
       <MKTypography
         component="a"
-        href="https://www.creative-tim.com"
+        href="http://localhost:3000/bitcoin"
         target="_blank"
         rel="noreferrer"
         variant="button"
         fontWeight="regular"
       >
-        Creative Tim
+        SIBB
       </MKTypography>
       .
     </MKTypography>

@@ -25,26 +25,27 @@ import MKSocialButton from "components/MKSocialButton";
 
 // Material Kit 2 React examples
 import SibbNavbar from "components/SibbNavbar";
-import DefaultFooter from "examples/Footers/DefaultFooter";
+import SibbFooter from "components/SibbFooter";
+
 import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
-
 // Presentation page sections
-import Counters from "pages/Presentation/sections/Counters";
-import Information from "pages/Presentation/sections/Information";
-import DesignBlocks from "pages/Presentation/sections/DesignBlocks";
-import Pages from "pages/Presentation/sections/Pages";
-import Testimonials from "pages/Presentation/sections/Testimonials";
+
 import Download from "pages/Presentation/sections/Download";
-
 // Presentation page components
-import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 
+import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 // Routes
 import routes from "routes";
-import footerRoutes from "footer.routes";
 
+import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/sibb-images/background.jpg";
+import BitcoinLogo from "assets/sibb-images/bitcoin_logo.png";
+import MKButton from "../../components/MKButton";
+import Icon from "@mui/material/Icon";
+import SibbLogo from "../../assets/sibb-images/sibb_logo.png";
+import pxToRem from "../../assets/theme/functions/pxToRem";
+import rgba from "../../assets/theme/functions/rgba";
 
 function SibbMain() {
   return (
@@ -54,7 +55,7 @@ function SibbMain() {
         action={{
           type: "external",
           route: "http://localhost:3000/bitcoin",
-          label: "Should you buy?",
+          label: "Create your referral!",
           color: "info",
         }}
         sticky
@@ -78,7 +79,7 @@ function SibbMain() {
               variant="h1"
               color="white"
               mt={-6}
-              mb={1}
+              mb={5}
               sx={({ breakpoints, typography: { size } }) => ({
                 [breakpoints.down("md")]: {
                   fontSize: size["3xl"],
@@ -87,16 +88,88 @@ function SibbMain() {
             >
               Should I Buy Bitcoin?{" "}
             </MKTypography>
-            <MKTypography
-              variant="body1"
-              color="white"
-              textAlign="center"
-              px={{ xs: 6, lg: 12 }}
-              mt={1}
-            >
-              Free & Open Source Web UI Kit built over ReactJS &amp; MUI. Join over 1.6 million
-              developers around the world.
-            </MKTypography>
+            <Container>
+              <Grid container spacing={3}>
+                <Grid item xs={12} lg={4}>
+                  <MKButton
+                    variant="outlined"
+                    color="white"
+                    sx={[
+                      {
+                        background: rgba(0, 0),
+                      },
+                      {
+                        "&:hover": {
+                          color: "white", // Color with click
+                          backgroundColor: "white", // Color when hovering
+                          background: rgba("FFFFFF", 0.2),
+                        },
+                      },
+                    ]}
+                  >
+                    <MKBox
+                      component="img"
+                      src={BitcoinLogo}
+                      alt="Should I Buy Bitcoin logo"
+                      height={pxToRem(64)}
+                      position="relative"
+                    />
+                  </MKButton>
+                </Grid>
+                <Grid item xs={12} lg={4}>
+                  <MKButton
+                    variant="outlined"
+                    color="white"
+                    sx={[
+                      {
+                        background: rgba(0, 0),
+                      },
+                      {
+                        "&:hover": {
+                          color: "white", // Color with click
+                          backgroundColor: "white", // Color when hovering
+                          background: rgba("FFFFFF", 0.2),
+                        },
+                      },
+                    ]}
+                  >
+                    <MKBox
+                      component="img"
+                      src={BitcoinLogo}
+                      alt="Should I Buy Bitcoin logo"
+                      height={pxToRem(64)}
+                      position="relative"
+                    />
+                  </MKButton>
+                </Grid>
+                <Grid item xs={12} lg={4}>
+                  <MKButton
+                    variant="outlined"
+                    color="white"
+                    sx={[
+                      {
+                        background: rgba(0, 0),
+                      },
+                      {
+                        "&:hover": {
+                          color: "white", // Color with click
+                          backgroundColor: "white", // Color when hovering
+                          background: rgba("FFFFFF", 0.2),
+                        },
+                      },
+                    ]}
+                  >
+                    <MKBox
+                      component="img"
+                      src={BitcoinLogo}
+                      alt="Should I Buy Bitcoin logo"
+                      height={pxToRem(64)}
+                      position="relative"
+                    />
+                  </MKButton>
+                </Grid>
+              </Grid>
+            </Container>
           </Grid>
         </Container>
       </MKBox>
@@ -106,15 +179,12 @@ function SibbMain() {
           mx: { xs: 2, lg: 3 },
           mt: -8,
           mb: 4,
-          backgroundColor: ({ palette: { white }, functions: { rgba } }) => rgba(white.main, 0.8),
+          backgroundColor: ({ palette: { white }, functions: { rgba } }) =>
+            rgba(white.main, 0.8),
           backdropFilter: "saturate(200%) blur(30px)",
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        <Counters />
-        <Information />
-        <DesignBlocks />
-        <Pages />
         <Container sx={{ mt: 6 }}>
           <BuiltByDevelopers />
         </Container>
@@ -129,7 +199,8 @@ function SibbMain() {
                 description="Check the possible ways of working with our product and the necessary files for building your own project."
                 action={{
                   type: "external",
-                  route: "https://www.creative-tim.com/learning-lab/react/overview/material-kit/",
+                  route:
+                    "https://www.creative-tim.com/learning-lab/react/overview/material-kit/",
                   label: "Let's start",
                 }}
               />
@@ -142,7 +213,8 @@ function SibbMain() {
                 description="Get inspiration and have an overview about the plugins that we used to create the Material Kit."
                 action={{
                   type: "external",
-                  route: "https://www.creative-tim.com/learning-lab/react/overview/datepicker/",
+                  route:
+                    "https://www.creative-tim.com/learning-lab/react/overview/datepicker/",
                   label: "Read more",
                 }}
               />
@@ -155,19 +227,25 @@ function SibbMain() {
                 description="Material Kit is giving you a lot of pre-made components, that will help you to build UI's faster."
                 action={{
                   type: "external",
-                  route: "https://www.creative-tim.com/learning-lab/react/alerts/material-kit/",
+                  route:
+                    "https://www.creative-tim.com/learning-lab/react/alerts/material-kit/",
                   label: "Read more",
                 }}
               />
             </Grid>
           </Grid>
         </Container>
-        <Testimonials />
         <Download />
         <MKBox pt={18} pb={6}>
           <Container>
             <Grid container spacing={3}>
-              <Grid item xs={12} lg={5} ml="auto" sx={{ textAlign: { xs: "center", lg: "left" } }}>
+              <Grid
+                item
+                xs={12}
+                lg={5}
+                ml="auto"
+                sx={{ textAlign: { xs: "center", lg: "left" } }}
+              >
                 <MKTypography variant="h4" fontWeight="bold" mb={0.5}>
                   Thank you for your support!
                 </MKTypography>
@@ -218,7 +296,7 @@ function SibbMain() {
         </MKBox>
       </Card>
       <MKBox pt={6} px={1} mt={6}>
-        <DefaultFooter content={footerRoutes} />
+        <SibbFooter content={footerRoutes} />
       </MKBox>
     </>
   );
