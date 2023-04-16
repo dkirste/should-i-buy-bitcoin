@@ -40,12 +40,14 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/sibb-images/background.jpg";
-import BitcoinLogo from "assets/sibb-images/bitcoin_logo.png";
+import EthereumLogo from "assets/sibb-images/ethereum_logo.png";
+import CosmosLogo from "assets/sibb-images/cosmos_logo.png";
 import MKButton from "../../components/MKButton";
 import Icon from "@mui/material/Icon";
 import SibbLogo from "../../assets/sibb-images/sibb_logo.png";
 import pxToRem from "../../assets/theme/functions/pxToRem";
 import rgba from "../../assets/theme/functions/rgba";
+import SibbTokenButton from "../../components/SibbTokenButton";
 
 function SibbMain() {
   return (
@@ -80,93 +82,41 @@ function SibbMain() {
               color="white"
               mt={-6}
               mb={5}
-              sx={({ breakpoints, typography: { size } }) => ({
-                [breakpoints.down("md")]: {
-                  fontSize: size["3xl"],
-                },
-              })}
+              fontWeight="bold"
             >
-              Should I Buy Bitcoin?{" "}
+              Should I Buy&nbsp;
+            </MKTypography>
+            <MKTypography
+              variant="h1"
+              color="white"
+              mt={-6}
+              mb={5}
+              fontWeight="bold"
+              //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
+              sx={[
+                {
+                  backgroundcolor: "primary",
+                  backgroundImage: `linear-gradient(45deg, #c46be6, #64d0e7)`,
+                  backgroundSize: "100%",
+                  backgroundRepeat: "repeat",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                },
+              ]}
+            >
+              {"  "}Bitcoin?
             </MKTypography>
             <Container>
               <Grid container spacing={3}>
                 <Grid item xs={12} lg={4}>
-                  <MKButton
-                    variant="outlined"
-                    color="white"
-                    sx={[
-                      {
-                        background: rgba(0, 0),
-                      },
-                      {
-                        "&:hover": {
-                          color: "white", // Color with click
-                          backgroundColor: "white", // Color when hovering
-                          background: rgba("FFFFFF", 0.2),
-                        },
-                      },
-                    ]}
-                  >
-                    <MKBox
-                      component="img"
-                      src={BitcoinLogo}
-                      alt="Should I Buy Bitcoin logo"
-                      height={pxToRem(64)}
-                      position="relative"
-                    />
-                  </MKButton>
+                  <SibbTokenButton content={{ tokenName: "bitcoin" }} />
                 </Grid>
                 <Grid item xs={12} lg={4}>
-                  <MKButton
-                    variant="outlined"
-                    color="white"
-                    sx={[
-                      {
-                        background: rgba(0, 0),
-                      },
-                      {
-                        "&:hover": {
-                          color: "white", // Color with click
-                          backgroundColor: "white", // Color when hovering
-                          background: rgba("FFFFFF", 0.2),
-                        },
-                      },
-                    ]}
-                  >
-                    <MKBox
-                      component="img"
-                      src={BitcoinLogo}
-                      alt="Should I Buy Bitcoin logo"
-                      height={pxToRem(64)}
-                      position="relative"
-                    />
-                  </MKButton>
+                  <SibbTokenButton content={{ tokenName: "ethereum" }} />
                 </Grid>
                 <Grid item xs={12} lg={4}>
-                  <MKButton
-                    variant="outlined"
-                    color="white"
-                    sx={[
-                      {
-                        background: rgba(0, 0),
-                      },
-                      {
-                        "&:hover": {
-                          color: "white", // Color with click
-                          backgroundColor: "white", // Color when hovering
-                          background: rgba("FFFFFF", 0.2),
-                        },
-                      },
-                    ]}
-                  >
-                    <MKBox
-                      component="img"
-                      src={BitcoinLogo}
-                      alt="Should I Buy Bitcoin logo"
-                      height={pxToRem(64)}
-                      position="relative"
-                    />
-                  </MKButton>
+                  <SibbTokenButton content={{ tokenName: "cosmos" }} />
                 </Grid>
               </Grid>
             </Container>
