@@ -3,22 +3,22 @@ import PropTypes from "prop-types";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
-import rgba from "../../assets/theme/functions/rgba";
-import BitcoinLogo from "../../assets/sibb-images/bitcoin_logo.png";
+import rgba from "../../../../assets/theme/functions/rgba";
+import BitcoinLogo from "../../../../assets/sibb-images/bitcoin_logo.png";
 import EthereumLogo from "assets/sibb-images/ethereum_logo.png";
 import CosmosLogo from "assets/sibb-images/cosmos_logo.png";
-import pxToRem from "../../assets/theme/functions/pxToRem";
-import MKButton from "../MKButton";
+import pxToRem from "../../../../assets/theme/functions/pxToRem";
+import MKButton from "../../../../components/MKButton";
 
 function SibbTokenButton({ content }) {
-  const { tokenName } = content;
+  const { tokenName, setTokenFunction } = content;
   let Logo;
 
-  if (tokenName === "bitcoin") {
+  if (tokenName.toLowerCase() === "bitcoin") {
     Logo = BitcoinLogo;
-  } else if (tokenName === "ethereum") {
+  } else if (tokenName.toLowerCase() === "ethereum") {
     Logo = EthereumLogo;
-  } else if (tokenName === "cosmos") {
+  } else if (tokenName.toLowerCase() === "cosmos") {
     Logo = CosmosLogo;
   }
 
@@ -27,6 +27,7 @@ function SibbTokenButton({ content }) {
       variant="outlined"
       color="white"
       fullWidth={true}
+      onClick={() => setTokenFunction(tokenName)}
       sx={[
         {
           background: rgba(0, 0),

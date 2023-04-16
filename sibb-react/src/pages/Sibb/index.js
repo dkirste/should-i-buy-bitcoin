@@ -24,8 +24,8 @@ import MKTypography from "components/MKTypography";
 import MKSocialButton from "components/MKSocialButton";
 
 // Material Kit 2 React examples
-import SibbNavbar from "components/SibbNavbar";
-import SibbFooter from "components/SibbFooter";
+import SibbNavbar from "pages/Sibb/components/SibbNavbar";
+import SibbFooter from "pages/Sibb/components/SibbFooter";
 
 import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
 // Presentation page sections
@@ -47,9 +47,87 @@ import Icon from "@mui/material/Icon";
 import SibbLogo from "../../assets/sibb-images/sibb_logo.png";
 import pxToRem from "../../assets/theme/functions/pxToRem";
 import rgba from "../../assets/theme/functions/rgba";
-import SibbTokenButton from "../../components/SibbTokenButton";
+import SibbTokenButton from "./components/SibbTokenButton";
+import { useState } from "react";
+import MKBoxRoot from "../../components/MKBox/MKBoxRoot";
+import SibbPaymentView from "./components/SibbPaymentView";
 
 function SibbMain() {
+  const [selectedToken, setSelectedToken] = useState("init");
+  const [paymentStatus, setPaymentStatus] = useState("init");
+  const queryParameters = new URLSearchParams(window.location.search);
+
+  const handleSelectedToken = (token) => {
+    setSelectedToken(token);
+    console.log(token);
+  };
+
+  const selectView = () => {
+    return (
+      <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+        {" "}
+        <MKTypography
+          variant="h1"
+          color="white"
+          mt={-6}
+          mb={5}
+          fontWeight="bold"
+        >
+          Should I Buy&nbsp;
+        </MKTypography>
+        <MKTypography
+          variant="h1"
+          color="white"
+          mt={-6}
+          mb={5}
+          fontWeight="bold"
+          //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
+          sx={[
+            {
+              backgroundcolor: "primary",
+              backgroundImage: `linear-gradient(45deg, #c46be6, #64d0e7)`,
+              backgroundSize: "100%",
+              backgroundRepeat: "repeat",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            },
+          ]}
+        >
+          ______?
+        </MKTypography>
+        <Container>
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={4}>
+              <SibbTokenButton
+                content={{
+                  tokenName: "Bitcoin",
+                  setTokenFunction: handleSelectedToken,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <SibbTokenButton
+                content={{
+                  tokenName: "Ethereum",
+                  setTokenFunction: handleSelectedToken,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <SibbTokenButton
+                content={{
+                  tokenName: "Cosmos",
+                  setTokenFunction: handleSelectedToken,
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Container>
+      </Grid>
+    );
+  };
+
   return (
     <>
       <SibbNavbar
@@ -76,51 +154,16 @@ function SibbMain() {
         }}
       >
         <Container>
-          <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
-            <MKTypography
-              variant="h1"
-              color="white"
-              mt={-6}
-              mb={5}
-              fontWeight="bold"
-            >
-              Should I Buy&nbsp;
-            </MKTypography>
-            <MKTypography
-              variant="h1"
-              color="white"
-              mt={-6}
-              mb={5}
-              fontWeight="bold"
-              //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
-              sx={[
-                {
-                  backgroundcolor: "primary",
-                  backgroundImage: `linear-gradient(45deg, #c46be6, #64d0e7)`,
-                  backgroundSize: "100%",
-                  backgroundRepeat: "repeat",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                },
-              ]}
-            >
-              {"  "}Bitcoin?
-            </MKTypography>
-            <Container>
-              <Grid container spacing={3}>
-                <Grid item xs={12} lg={4}>
-                  <SibbTokenButton content={{ tokenName: "bitcoin" }} />
-                </Grid>
-                <Grid item xs={12} lg={4}>
-                  <SibbTokenButton content={{ tokenName: "ethereum" }} />
-                </Grid>
-                <Grid item xs={12} lg={4}>
-                  <SibbTokenButton content={{ tokenName: "cosmos" }} />
-                </Grid>
-              </Grid>
-            </Container>
-          </Grid>
+          {selectedToken === "init" && selectView()}
+          <Container>
+            {selectedToken.toLowerCase() === "bitcoin" && (
+              <SibbPaymentView
+                content={{
+                  tokenName: selectedToken,
+                }}
+              />
+            )}
+          </Container>
         </Container>
       </MKBox>
       <Card
