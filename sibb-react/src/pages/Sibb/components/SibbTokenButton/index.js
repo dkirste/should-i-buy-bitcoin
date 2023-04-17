@@ -9,6 +9,12 @@ import EthereumLogo from "assets/sibb-images/ethereum_logo.png";
 import CosmosLogo from "assets/sibb-images/cosmos_logo.png";
 import pxToRem from "../../../../assets/theme/functions/pxToRem";
 import MKButton from "../../../../components/MKButton";
+import RotatingCard from "../../../../examples/Cards/RotatingCard";
+import RotatingCardBack from "../../../../examples/Cards/RotatingCard/RotatingCardBack";
+import MKTypography from "../../../../components/MKTypography";
+import Container from "@mui/material/Container";
+import SibbCardFront from "./SibbCardFront";
+import SibbCardBack from "./SibbCardBack";
 
 function SibbTokenButton({ content }) {
   const { tokenName, setTokenFunction } = content;
@@ -23,32 +29,11 @@ function SibbTokenButton({ content }) {
   }
 
   return (
-    <MKButton
-      variant="outlined"
-      color="white"
-      fullWidth={true}
-      onClick={() => setTokenFunction(tokenName)}
-      sx={[
-        {
-          background: rgba(0, 0),
-        },
-        {
-          "&:hover": {
-            color: "white", // Color with click
-            backgroundColor: "white", // Color when hovering
-            background: rgba("FFFFFF", 0.2),
-          },
-        },
-      ]}
-    >
-      <MKBox
-        component="img"
-        src={Logo}
-        alt={tokenName + " logo"}
-        height={pxToRem(64)}
-        position="relative"
-      />
-    </MKButton>
+    <RotatingCard>
+      <SibbCardFront content={{ tokenName: tokenName }} />
+
+      <SibbCardBack content={{ tokenName: tokenName }} />
+    </RotatingCard>
   );
 }
 
