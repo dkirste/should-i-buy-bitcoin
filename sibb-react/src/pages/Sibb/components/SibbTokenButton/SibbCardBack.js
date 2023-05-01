@@ -60,15 +60,15 @@ function SibbCardBack({ content }) {
             fontWeight="bold"
             //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
           >
-            Pay one dollar via Stribe or Paypal to see results!
+            Choose your payment method
           </MKTypography>
         </Container>
-        <MKBox py={2} px={1} textAlign="center" lineHeight={1}>
+        <MKBox py={2} px={1} textAlign="center" lineHeight={2}>
           <MKButton py={2} px={1} mx={1}>
             Paypal
           </MKButton>
           <MKButton py={2} px={1} mx={1}>
-            Stribe
+            Credit Card
           </MKButton>
         </MKBox>
       </MKBox>

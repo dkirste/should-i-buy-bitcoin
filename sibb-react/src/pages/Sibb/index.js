@@ -51,6 +51,7 @@ import SibbTokenButton from "./components/SibbTokenButton";
 import { useState } from "react";
 import MKBoxRoot from "../../components/MKBox/MKBoxRoot";
 import SibbPaymentView from "./components/SibbPaymentView";
+import GetMoreInfo from "./components/SibbGetMoreInfo";
 
 function SibbMain() {
   const [selectedToken, setSelectedToken] = useState("init");
@@ -188,47 +189,29 @@ function SibbMain() {
                 variant="gradient"
                 color="info"
                 icon="flag"
-                title="Getting Started"
-                description="Check the possible ways of working with our product and the necessary files for building your own project."
-                action={{
-                  type: "external",
-                  route:
-                    "https://www.creative-tim.com/learning-lab/react/overview/material-kit/",
-                  label: "Let's start",
-                }}
+                title="Step 1: Choose asset and payment method"
+                description="Choose the crypto-asset you want to analyze and pay $1 to see the results."
               />
             </Grid>
             <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 color="info"
                 icon="precision_manufacturing"
-                title="Plugins"
-                description="Get inspiration and have an overview about the plugins that we used to create the Material Kit."
-                action={{
-                  type: "external",
-                  route:
-                    "https://www.creative-tim.com/learning-lab/react/overview/datepicker/",
-                  label: "Read more",
-                }}
+                title="Step 2: Analysis based on indicators"
+                description="Our algorithm analyzes the current market sentiment based on various indiciates and estimates market opportunities"
               />
             </Grid>
             <Grid item xs={12} lg={4}>
               <FilledInfoCard
                 color="info"
                 icon="apps"
-                title="Components"
-                description="Material Kit is giving you a lot of pre-made components, that will help you to build UI's faster."
-                action={{
-                  type: "external",
-                  route:
-                    "https://www.creative-tim.com/learning-lab/react/alerts/material-kit/",
-                  label: "Read more",
-                }}
+                title="Step 3: Derivce you personal decision for action"
+                description="Check the result and in-depth analysis of various indicators in order to derive your buying/selling opportunity."
               />
             </Grid>
           </Grid>
         </Container>
-        <Download />
+        <GetMoreInfo />
         <MKBox pt={18} pb={6}>
           <Container>
             <Grid container spacing={3}>
