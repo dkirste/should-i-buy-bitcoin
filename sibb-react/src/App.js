@@ -24,10 +24,11 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 // Material Kit 2 React themes
 import theme from "assets/theme";
-import SibbMainPage from "layouts/pages/Sibb";
 
 // Material Kit 2 React routes
 import routes from "routes";
+import SibbMainPage from "./pages/Sibb/sibbMainPage";
+import SibbResultsPage from "./pages/Sibb/sibbResultsPage";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -45,7 +46,14 @@ export default function App() {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
+        return (
+          <Route
+            exact
+            path={route.route}
+            element={route.component}
+            key={route.key}
+          />
+        );
       }
 
       return null;
@@ -56,8 +64,9 @@ export default function App() {
       <CssBaseline />
       <Routes>
         {getRoutes(routes)}
-        <Route path="/bitcoin" element={<SibbMainPage />} />
-        <Route path="*" element={<Navigate to="/bitcoin" />} />
+        <Route path="/" element={<SibbMainPage />} />
+        <Route path="/analysis" element={<SibbResultsPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
   );

@@ -53,7 +53,7 @@ import MKBoxRoot from "../../components/MKBox/MKBoxRoot";
 import SibbPaymentView from "./components/SibbPaymentView";
 import GetMoreInfo from "./components/SibbGetMoreInfo";
 
-function SibbMain() {
+function SibbMainPage() {
   const [selectedToken, setSelectedToken] = useState("init");
   const [paymentStatus, setPaymentStatus] = useState("init");
   const queryParameters = new URLSearchParams(window.location.search);
@@ -278,4 +278,4 @@ function SibbMain() {
   );
 }
 
-export default SibbMain;
+export default SibbMainPage;

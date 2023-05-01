@@ -14,8 +14,8 @@ Coded by www.creative-tim.com
 */
 
 // Material Kit 2 React pages
-import SibbMain from "pages/Sibb";
+import SibbMainPage from "pages/Sibb/sibbMainPage";
 
 export default function SibbMainPage() {
-  return <SibbMain />;
+  return <SibbMainPage />;
 }
