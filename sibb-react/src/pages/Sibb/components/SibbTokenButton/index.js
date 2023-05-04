@@ -18,8 +18,8 @@ import SibbCardBack from "./SibbCardBack";
 
 function SibbTokenButton({ content }) {
   const { tokenName, setTokenFunction } = content;
-  let Logo;
 
+  let Logo;
   if (tokenName.toLowerCase() === "bitcoin") {
     Logo = BitcoinLogo;
   } else if (tokenName.toLowerCase() === "ethereum") {

@@ -50,7 +50,6 @@ function SibbResults() {
   const updatePaymentStatus = async () => {
     const sessionId = getUrlSessionId();
     let status = "unpaid";
-    setPaymentStatus("unpaid");
     if (sessionId !== undefined) {
       const res = await fetch(
         "http://127.0.0.1:5000/checkpayment/" + sessionId
@@ -180,6 +179,13 @@ function SibbResults() {
           opacity: 0.9,
         }}
       >
+        {paymentStatus === "init" && (
+          <Container>
+            <MKTypography variant="h1" color="white" fontWeight="bold" mb={0.5}>
+              Waiting for payment...
+            </MKTypography>
+          </Container>
+        )}
         {paymentStatus === "paid" && <Container>{resultSlogan()}</Container>}
         {paymentStatus === "unpaid" && (
           <Container>

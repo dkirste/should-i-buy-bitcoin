@@ -58,11 +58,6 @@ function SibbMainPage() {
   const [paymentStatus, setPaymentStatus] = useState("init");
   const queryParameters = new URLSearchParams(window.location.search);
 
-  const handleSelectedToken = (token) => {
-    setSelectedToken(token);
-    console.log(token);
-  };
-
   const selectView = () => {
     return (
       <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
@@ -103,7 +98,6 @@ function SibbMainPage() {
               <SibbTokenButton
                 content={{
                   tokenName: "Bitcoin",
-                  setTokenFunction: handleSelectedToken,
                 }}
               />
             </Grid>
@@ -111,7 +105,6 @@ function SibbMainPage() {
               <SibbTokenButton
                 content={{
                   tokenName: "Ethereum",
-                  setTokenFunction: handleSelectedToken,
                 }}
               />
             </Grid>
@@ -119,7 +112,6 @@ function SibbMainPage() {
               <SibbTokenButton
                 content={{
                   tokenName: "Cosmos",
-                  setTokenFunction: handleSelectedToken,
                 }}
               />
             </Grid>
@@ -154,18 +146,7 @@ function SibbMainPage() {
           opacity: 0.9,
         }}
       >
-        <Container>
-          {selectedToken === "init" && selectView()}
-          <Container>
-            {selectedToken.toLowerCase() === "bitcoin" && (
-              <SibbPaymentView
-                content={{
-                  tokenName: selectedToken,
-                }}
-              />
-            )}
-          </Container>
-        </Container>
+        <Container>{selectedToken === "init" && selectView()}</Container>
       </MKBox>
       <Card
         sx={{

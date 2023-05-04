@@ -16,8 +16,19 @@ import Container from "@mui/material/Container";
 
 function SibbCardBack({ content }) {
   const { tokenName } = content;
-  let Logo;
 
+  const retrieveNewSession = async () => {
+    const res = await fetch("http://127.0.0.1:5000/checkout/" + tokenName);
+    return await res.json();
+  };
+
+  const triggerPayment = async () => {
+    const sessionId = await retrieveNewSession();
+    console.log(sessionId);
+    window.location.href = sessionId.url;
+  };
+
+  let Logo;
   if (tokenName.toLowerCase() === "bitcoin") {
     Logo = BitcoinLogo;
   } else if (tokenName.toLowerCase() === "ethereum") {
@@ -67,7 +78,7 @@ function SibbCardBack({ content }) {
           <MKButton py={2} px={1} mx={1}>
             Paypal
           </MKButton>
-          <MKButton py={2} px={1} mx={1}>
+          <MKButton py={2} px={1} mx={1} onClick={triggerPayment}>
             Credit Card
           </MKButton>
         </MKBox>
