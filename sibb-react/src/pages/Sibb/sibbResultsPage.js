@@ -27,34 +27,14 @@ import MKSocialButton from "components/MKSocialButton";
 import SibbNavbar from "pages/Sibb/components/SibbNavbar";
 import SibbFooter from "pages/Sibb/components/SibbFooter";
 
-import FilledInfoCard from "examples/Cards/InfoCards/FilledInfoCard";
-// Presentation page sections
-
-import Download from "pages/Presentation/sections/Download";
-// Presentation page components
-
-import BuiltByDevelopers from "pages/Presentation/components/BuiltByDevelopers";
 // Routes
 import routes from "routes";
 
 import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/sibb-images/background.jpg";
-import EthereumLogo from "assets/sibb-images/ethereum_logo.png";
-import CosmosLogo from "assets/sibb-images/cosmos_logo.png";
-import MKButton from "../../components/MKButton";
-import Icon from "@mui/material/Icon";
-import SibbLogo from "../../assets/sibb-images/sibb_logo.png";
-import pxToRem from "../../assets/theme/functions/pxToRem";
-import rgba from "../../assets/theme/functions/rgba";
-import SibbTokenButton from "./components/SibbTokenButton";
-import { useState } from "react";
-import MKBoxRoot from "../../components/MKBox/MKBoxRoot";
-import SibbPaymentView from "./components/SibbPaymentView";
-import GetMoreInfo from "./components/SibbGetMoreInfo";
-import { Link } from "react-router-dom";
-import ExampleCard from "../Presentation/components/ExampleCard";
-import MKBadge from "../../components/MKBadge";
+import { useEffect, useState } from "react";
+
 import SibbChartCard from "./components/SibbChartCard";
 
 function SibbResults() {
@@ -62,12 +42,39 @@ function SibbResults() {
   const [paymentStatus, setPaymentStatus] = useState("init");
   const queryParameters = new URLSearchParams(window.location.search);
 
-  const handleSelectedToken = (token) => {
-    setSelectedToken(token);
-    console.log(token);
+  useEffect(() => {
+    // Update the document title using the browser API
+    const err = updatePaymentStatus();
+  });
+
+  const updatePaymentStatus = async () => {
+    const sessionId = getUrlSessionId();
+    let status = "unpaid";
+    setPaymentStatus("unpaid");
+    if (sessionId !== undefined) {
+      const res = await fetch(
+        "http://127.0.0.1:5000/checkpayment/" + sessionId
+      );
+      const resString = await res.json();
+      console.log(resString);
+      status = resString.status;
+    }
+
+    if (status === "paid") {
+      setPaymentStatus("paid");
+    } else {
+      setPaymentStatus("unpaid");
+    }
+  };
+
+  const getUrlSessionId = () => {
+    const sessionId = queryParameters.get("id");
+    console.log(sessionId);
+    return sessionId;
   };
 
   const chartData = () => {
+    const sessionId = getUrlSessionId();
     return (
       <MKBox my={0} py={0}>
         <Grid container spacing={0} sx={{ mb: 3 }}>
@@ -93,10 +100,10 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedCoin: "bitcoin",
-                    sessionId: "DEBUG",
+                    sessionId: { sessionId },
                     metric_key: "rsi_value",
                     metric_title: "RSI",
-                    metric_desc: "This is the RSI indicator",
+                    metric_desc: "Relative Strength Index (14)",
                   }}
                 />
               </Grid>
@@ -104,10 +111,10 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedCoin: "bitcoin",
-                    sessionId: "DEBUG",
-                    metric_key: "rsi_value",
-                    metric_title: "RSI",
-                    metric_desc: "Test",
+                    sessionId: { sessionId },
+                    metric_key: "stoch_k_value",
+                    metric_title: "Stochastic %K",
+                    metric_desc: "Stochastic %K description",
                   }}
                 />
               </Grid>
@@ -115,10 +122,10 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedCoin: "bitcoin",
-                    sessionId: "DEBUG",
-                    metric_key: "rsi_value",
-                    metric_title: "RSI",
-                    metric_desc: "Test",
+                    sessionId: { sessionId },
+                    metric_key: "cci_value",
+                    metric_title: "Commodity Channel Index",
+                    metric_desc: "Commodity Channel Index (20) description",
                   }}
                 />
               </Grid>
@@ -126,10 +133,10 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedCoin: "bitcoin",
-                    sessionId: "DEBUG",
-                    metric_key: "rsi_value",
-                    metric_title: "RSI",
-                    metric_desc: "Test",
+                    sessionId: { sessionId },
+                    metric_key: "adx_value",
+                    metric_title: "Average Directional Index (14)",
+                    metric_desc: "Average Directional Index description",
                   }}
                 />
               </Grid>
@@ -137,6 +144,14 @@ function SibbResults() {
           </Grid>
         </Grid>
       </MKBox>
+    );
+  };
+
+  const resultSlogan = () => {
+    return (
+      <MKTypography variant="h1" color="white" fontWeight="bold" mb={0.5}>
+        Yes, you should buy {selectedToken}!
+      </MKTypography>
     );
   };
 
@@ -154,7 +169,7 @@ function SibbResults() {
         brand="Should I Buy Bitcoin?"
       />
       <MKBox
-        minHeight="75vh"
+        minHeight="50vh"
         width="100%"
         sx={{
           backgroundImage: `url(${bgImage})`,
@@ -165,7 +180,14 @@ function SibbResults() {
           opacity: 0.9,
         }}
       >
-        <Container>Here comes some text</Container>
+        {paymentStatus === "paid" && <Container>{resultSlogan()}</Container>}
+        {paymentStatus === "unpaid" && (
+          <Container>
+            <MKTypography variant="h1" color="white" fontWeight="bold" mb={0.5}>
+              Return to homepage to see results!
+            </MKTypography>
+          </Container>
+        )}
       </MKBox>
 
       <Card
@@ -181,7 +203,9 @@ function SibbResults() {
         }}
       >
         <MKBox my={6} py={6}>
-          <Container sx={{ mt: 6 }}>{chartData()}</Container>
+          {paymentStatus === "paid" && (
+            <Container sx={{ mt: 6 }}>{chartData()}</Container>
+          )}
         </MKBox>
         <MKBox pt={18} pb={6}>
           <Container>
