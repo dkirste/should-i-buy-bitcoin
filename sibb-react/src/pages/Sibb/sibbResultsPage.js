@@ -89,7 +89,11 @@ function SibbResults() {
                 mb={1}
                 pr={2}
               >
-                These indicators are oscillating and generate signals :)
+                Oscillating indicators are technical analysis tools that
+                fluctuate within a specific range to provide buy/sell signals
+                based on oversold or overbought conditions, and are important
+                for traders to identify potential trading opportunities and
+                improve their risk management strategies.
               </MKTypography>
             </MKBox>
           </Grid>
@@ -102,7 +106,8 @@ function SibbResults() {
                     sessionId: { sessionId },
                     metric_key: "rsi_value",
                     metric_title: "RSI",
-                    metric_desc: "Relative Strength Index (14)",
+                    metric_desc:
+                      "The Relative Strength Index (14) is a technical analysis indicator that measures the magnitude of recent price changes to determine whether an asset is overbought or oversold, and can be used to identify potential trend reversals.",
                   }}
                 />
               </Grid>
@@ -113,7 +118,8 @@ function SibbResults() {
                     sessionId: { sessionId },
                     metric_key: "stoch_k_value",
                     metric_title: "Stochastic %K",
-                    metric_desc: "Stochastic %K description",
+                    metric_desc:
+                      "Stochastic %K is a technical analysis indicator that measures the current price of an asset relative to its price range over a set period of time, indicating potential buy/sell signals based on oversold or overbought conditions.",
                   }}
                 />
               </Grid>
@@ -124,7 +130,8 @@ function SibbResults() {
                     sessionId: { sessionId },
                     metric_key: "cci_value",
                     metric_title: "Commodity Channel Index",
-                    metric_desc: "Commodity Channel Index (20) description",
+                    metric_desc:
+                      "The Commodity Channel Index (CCI) is a technical analysis indicator that measures the deviation of an asset's price from its statistical average, indicating potential overbought or oversold conditions.",
                   }}
                 />
               </Grid>
@@ -135,7 +142,105 @@ function SibbResults() {
                     sessionId: { sessionId },
                     metric_key: "adx_value",
                     metric_title: "Average Directional Index (14)",
-                    metric_desc: "Average Directional Index description",
+                    metric_desc:
+                      "The Average Directional Index (14) is a technical analysis indicator that measures the strength of a trend over the past 14 periods and can be used to identify potential trend reversals.",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container spacing={0} sx={{ mb: 3 }}>
+          <Grid item mr={0} xs={12} lg={3}>
+            <MKBox position="sticky" top="100px" pb={{ xs: 2, lg: 6 }}>
+              <MKTypography variant="h3" fontWeight="bold" mb={1}>
+                Moving Averages
+              </MKTypography>
+              <MKTypography
+                variant="body2"
+                fontWeight="regular"
+                color="secondary"
+                mb={1}
+                pr={2}
+              >
+                Moving averages are technical analysis indicators that smooth
+                out price fluctuations to identify trends and generate buy/sell
+                signals based on crossovers and divergences, and are important
+                for traders to confirm price movements and manage risks.
+              </MKTypography>
+            </MKBox>
+          </Grid>
+          <Grid item xs={12} lg={9}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                <SibbChartCard
+                  content={{
+                    selectedCoin: "bitcoin",
+                    sessionId: { sessionId },
+                    metric_key: "sma10_value",
+                    metric_title: "SMA 10",
+                    metric_desc:
+                      "SMA 10 is a technical analysis indicator that calculates the simple moving average of the closing price over the past 10 periods, giving equal weight to all prices.",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                <SibbChartCard
+                  content={{
+                    selectedCoin: "bitcoin",
+                    sessionId: { sessionId },
+                    metric_key: "sma100_value",
+                    metric_title: "SMA 100",
+                    metric_desc:
+                      "SMA 100 is a technical analysis indicator that calculates the simple moving average of the closing price over the past 100 periods, giving equal weight to all prices.",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                <SibbChartCard
+                  content={{
+                    selectedCoin: "bitcoin",
+                    sessionId: { sessionId },
+                    metric_key: "ema10_value",
+                    metric_title: "EMA 10",
+                    metric_desc:
+                      "EMA 10 is a technical analysis indicator that calculates the exponential moving average of the closing price over the past 10 periods, giving more weight to recent prices.",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                <SibbChartCard
+                  content={{
+                    selectedCoin: "bitcoin",
+                    sessionId: { sessionId },
+                    metric_key: "ema100_value",
+                    metric_title: "EMA 100",
+                    metric_desc:
+                      "EMA 100 is a technical analysis indicator that calculates the exponential moving average of the closing price over the past 100 periods, giving more weight to recent prices.",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                <SibbChartCard
+                  content={{
+                    selectedCoin: "bitcoin",
+                    sessionId: { sessionId },
+                    metric_key: "ichimoku_value",
+                    metric_title: "ICHIMOKU CLOUD",
+                    metric_desc:
+                      "Ichimoku Cloud is a technical analysis tool that uses a combination of moving averages and a shaded area to identify trends and potential trading opportunities.",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                <SibbChartCard
+                  content={{
+                    selectedCoin: "bitcoin",
+                    sessionId: { sessionId },
+                    metric_key: "hullma9_value",
+                    metric_title: "Hull Moving Average (14)",
+                    metric_desc:
+                      "The Hull Moving Average (HMA) is a technical analysis indicator that calculates a weighted moving average to reduce lag and improve accuracy in identifying trends and potential trading opportunities.",
                   }}
                 />
               </Grid>
