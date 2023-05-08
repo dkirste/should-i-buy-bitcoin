@@ -2,9 +2,9 @@ import influxdb_client, os, time, json
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 
 def setup_influx_query():
-    token = "YVpXPe10vASl3jYtegtGnZzngih6RaNSG2-jzu-ScqdV8ItNWovQEDTCpdTVTVHzoDraLbKM8J0uxTf3eCKKdQ=="
+    token = "dIaHfG3MB3DSBSzjU0uj6CrfoQTcp2doQpaN-Oj1II3pvwLYflnXF_Sof4iNufr8wrsPZHeFErYPeGNxQvSZiw=="
     org = "sibb"
-    url = "http://192.168.2.200:8086"
+    url = "http://85.214.130.182:8086"
 
     client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 

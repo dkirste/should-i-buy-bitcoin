@@ -11,10 +11,12 @@ stripe.api_key = 'sk_test_51MT9rdCucEhG8tYmfVzmXd65sQsyz2TQLN4BQCR7gthMo2wU2A2NF
 @app.route('/bitcoin/<measurement>/<stribeSessionId>')
 @cross_origin()
 def bitcoin_price_value(measurement, stribeSessionId):
-    if stribe_lib.check_payment_status(stribeSessionId, stripe.api_key) == 'paid':
+    status, token = stribe_lib.check_payment_status(stribeSessionId, stripe.api_key)
+    if status == 'paid':
         pass
     else:
         return ""
+        #return ""
     # Create influx query api
     query_api = influx_lib.setup_influx_query()
 
@@ -34,12 +36,14 @@ def bitcoin_price_value(measurement, stribeSessionId):
 @app.route('/checkout/<selectedCoin>', methods=['GET'])
 @cross_origin()
 def checkout(selectedCoin):
+    selectedCoin = selectedCoin.lower()
     checkout_session = stripe.checkout.Session.create(
         line_items=[
             {
                 'price_data': {
                     'product_data': {
-                        'name': f"SIBB | {selectedCoin}",
+                        'name': f"Should I Buy Bitcoin",
+                        'description': f"{selectedCoin}"
                     },
                     'unit_amount': 100,
                     'currency': 'usd',
@@ -49,8 +53,9 @@ def checkout(selectedCoin):
         ],
         payment_method_types=['card'],
         mode='payment',
-        success_url='http://127.0.0.1:3000?id={CHECKOUT_SESSION_ID}',
+        success_url='http://127.0.0.1:3000/analysis?id={CHECKOUT_SESSION_ID}',
         cancel_url='http://127.0.0.1:3000',
+        metadata={'token':f"{selectedCoin}"}
     )
     print(checkout_session)
     return checkout_session
@@ -59,10 +64,10 @@ def checkout(selectedCoin):
 @app.route('/checkpayment/<stribeSessionId>', methods=['GET'])
 @cross_origin()
 def checkpayment(stribeSessionId):
-    if stribe_lib.check_payment_status(stribeSessionId, stripe.api_key) == 'paid':
-        return {'status': 'paid'}
-    else:
-        return {'status': 'unpaid'}
+    print(stribe_lib.check_payment_status(stribeSessionId, stripe.api_key))
+    status, token = stribe_lib.check_payment_status(stribeSessionId, stripe.api_key)
+    return {'status': status, 'token': token}
+
 
 if __name__ == '__main__':
     app.run()
