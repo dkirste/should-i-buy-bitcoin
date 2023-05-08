@@ -32,7 +32,7 @@ import EthereumLogo from "assets/sibb-images/ethereum_logo.png";
 import SibbChart from "../SibbChart";
 
 function SibbChartCard({ content }) {
-  const { selectedCoin, sessionId, metric_key, metric_title, metric_desc } =
+  const { selectedToken, sessionId, metric_key, metric_title, metric_desc } =
     content;
 
   const cardActionStyles = {
@@ -68,7 +68,7 @@ function SibbChartCard({ content }) {
       <MKBox p={3}>
         <MKBox minHeight="20.625rem" my="auto" py={0}>
           <SibbChart
-            selectedCoin={selectedCoin}
+            selectedCoin={selectedToken}
             sessionId={sessionId}
             metric={metric_key}
           />

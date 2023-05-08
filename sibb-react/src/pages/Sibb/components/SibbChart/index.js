@@ -19,7 +19,6 @@ class SibbChart extends React.Component {
       data: {},
       yWidth: {},
     };
-    console.log(props.sessionId);
     this.sessionId = this.props.sessionId;
   }
 
@@ -34,7 +33,6 @@ class SibbChart extends React.Component {
           this.sessionId
       );
       const resjson = await res.json();
-      console.log(resjson);
       this.setState({ data: resjson });
       this.setState({ yWidth: this.longestLabelLength() });
 
@@ -56,7 +54,7 @@ class SibbChart extends React.Component {
     for (const [key, value] of Object.entries(this.state.data)) {
       if (key === this.metric) {
         for (const [k, v] of Object.entries(value)) {
-          console.log(Math.round(v.value).toString().length * 15);
+          //console.log(Math.round(v.value).toString().length * 15);
           return Math.round(v.value).toString().length * 15;
         }
       }
