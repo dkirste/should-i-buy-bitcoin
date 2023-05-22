@@ -58,9 +58,9 @@ function SibbMainPage() {
   const [paymentStatus, setPaymentStatus] = useState("init");
   const queryParameters = new URLSearchParams(window.location.search);
 
-  const selectView = () => {
+  const tokenSelector = () => {
     return (
-      <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+      <Grid container item xs={12} lg={12} justifyContent="center" mx="auto">
         {" "}
         <MKTypography
           variant="h1"
@@ -146,7 +146,7 @@ function SibbMainPage() {
           opacity: 0.9,
         }}
       >
-        <Container>{selectedToken === "init" && selectView()}</Container>
+        <Container>{tokenSelector()}</Container>
       </MKBox>
       <Card
         sx={{
