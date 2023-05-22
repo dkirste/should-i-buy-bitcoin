@@ -105,13 +105,23 @@ function SibbCardBack({ content }) {
           </MKTypography>
         </Container>
 
-        <MKBox pt={1} px={1} textAlign="center" lineHeight={2}>
-          <MKButton py={2} px={1} mx={1} fullWidth disabled={!AGBState}>
+        <MKBox mx={4} pt={1} px={1} textAlign="center" lineHeight={2}>
+          <MKButton
+            variant="gradient"
+            color="info"
+            py={2}
+            px={1}
+            mx={1}
+            fullWidth
+            disabled={!AGBState}
+          >
             Paypal
           </MKButton>
         </MKBox>
-        <MKBox py={1} px={1} textAlign="center" lineHeight={2}>
+        <MKBox mx={4} py={1} px={1} textAlign="center" lineHeight={2}>
           <MKButton
+            variant="gradient"
+            color="info"
             py={1}
             px={1}
             mx={1}
@@ -122,16 +132,14 @@ function SibbCardBack({ content }) {
             Credit Card
           </MKButton>
         </MKBox>
-        <MKBox py={0} px={1} textAlign="center">
+        <MKBox pb={0} px={1} textAlign="center">
           <input type="checkbox" checked={AGBState} onChange={toggleAGBState} />
           <MKTypography
             px={1}
-            py={0}
+            py={1}
             variant="string"
             color="white"
-            fontSize={12}
-            verticalAlign="center"
-
+            fontSize={13}
             //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
           >
             I have read and accept the ABG.

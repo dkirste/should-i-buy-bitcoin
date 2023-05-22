@@ -57,13 +57,13 @@ function SibbResults() {
       );
       const resString = await res.json();
       console.log(resString);
-      status = resString['status'];
-      token = resString['token'];
+      status = resString["status"];
+      token = resString["token"];
     }
 
     if (status === "paid") {
       setPaymentStatus("paid");
-      setSelectedToken(token)
+      setSelectedToken(token);
     } else {
       setPaymentStatus("unpaid");
     }
@@ -106,7 +106,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "rsi_value",
                     metric_title: "RSI",
                     metric_desc:
@@ -118,7 +118,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "stoch_k_value",
                     metric_title: "Stochastic %K",
                     metric_desc:
@@ -130,7 +130,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId: sessionId ,
+                    sessionId: sessionId,
                     metric_key: "cci_value",
                     metric_title: "Commodity Channel Index",
                     metric_desc:
@@ -142,7 +142,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "adx_value",
                     metric_title: "Average Directional Index (14)",
                     metric_desc:
@@ -179,7 +179,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId: sessionId ,
+                    sessionId: sessionId,
                     metric_key: "sma10_value",
                     metric_title: "SMA 10",
                     metric_desc:
@@ -191,7 +191,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "sma100_value",
                     metric_title: "SMA 100",
                     metric_desc:
@@ -203,7 +203,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "ema10_value",
                     metric_title: "EMA 10",
                     metric_desc:
@@ -215,7 +215,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "ema100_value",
                     metric_title: "EMA 100",
                     metric_desc:
@@ -227,7 +227,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "ichimoku_value",
                     metric_title: "ICHIMOKU CLOUD",
                     metric_desc:
@@ -239,7 +239,7 @@ function SibbResults() {
                 <SibbChartCard
                   content={{
                     selectedToken: selectedToken,
-                    sessionId:  sessionId ,
+                    sessionId: sessionId,
                     metric_key: "hullma9_value",
                     metric_title: "Hull Moving Average (14)",
                     metric_desc:
@@ -316,12 +316,13 @@ function SibbResults() {
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
         }}
       >
-        {selectedToken !== 'init' &&
-        <MKBox my={6} py={6}>
-          {paymentStatus === "paid" && (
-            <Container sx={{ mt: 6 }}>{chartData()}</Container>
-          )}
-        </MKBox>}
+        {selectedToken !== "init" && (
+          <MKBox my={6} py={6}>
+            {paymentStatus === "paid" && (
+              <Container sx={{ mt: 6 }}>{chartData()}</Container>
+            )}
+          </MKBox>
+        )}
         <MKBox pt={18} pb={6}>
           <Container>
             <Grid container spacing={3}>
