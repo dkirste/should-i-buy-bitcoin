@@ -70,7 +70,7 @@ function SibbCardFront({ content }) {
           fontWeight="bold"
           //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
         >
-          Hier könnte ihr Text stehen :))
+          {tokenName}
         </MKTypography>
       </MKBox>
     </MKBox>

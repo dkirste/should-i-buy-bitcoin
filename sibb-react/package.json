@@ -5,7 +5,7 @@
   "proxy": "http://localhost:5000/",
   "author": "SIBB",
   "license": "See license in https://www.creative-tim.com/license",
-  "description": "Should I Buy Bitcoin Page,
+  "description": "Should I Buy Bitcoin Page",
   "homepage": "https://should-i-buy-bitcoin.com/",
   "bugs": {
     "url": "https://github.com/creativetimofficial/ct-material-kit-react/issues"

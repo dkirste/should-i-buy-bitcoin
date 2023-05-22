@@ -13,12 +13,37 @@ import RotatingCard from "../../../../examples/Cards/RotatingCard";
 import RotatingCardBack from "../../../../examples/Cards/RotatingCard/RotatingCardBack";
 import MKTypography from "../../../../components/MKTypography";
 import Container from "@mui/material/Container";
+import { useEffect, useState } from "react";
+import Checkbox from "../../../../assets/theme/components/form/checkbox";
+import { FormControlLabel } from "@mui/material";
 
 function SibbCardBack({ content }) {
   const { tokenName } = content;
+  const [AGBState, setAGBState] = useState(false);
+  const [refCode, setRefCode] = useState("sibb");
+
+  const queryParameters = new URLSearchParams(window.location.search);
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    const err = updateRefCode();
+  });
+
+  const updateRefCode = () => {
+    const refCode = queryParameters.get("ref");
+    if (refCode === null) {
+      return "sibb";
+    } else {
+      setRefCode(refCode);
+      console.log(refCode);
+      return refCode;
+    }
+  };
 
   const retrieveNewSession = async () => {
-    const res = await fetch("http://127.0.0.1:5000/checkout/" + tokenName);
+    const res = await fetch(
+      "http://127.0.0.1:5000/checkout/" + tokenName + "/" + refCode
+    );
     return await res.json();
   };
 
@@ -26,6 +51,11 @@ function SibbCardBack({ content }) {
     const sessionId = await retrieveNewSession();
     console.log(sessionId);
     window.location.href = sessionId.url;
+  };
+
+  const toggleAGBState = () => {
+    setAGBState(!AGBState);
+    return AGBState;
   };
 
   let Logo;
@@ -71,16 +101,41 @@ function SibbCardBack({ content }) {
             fontWeight="bold"
             //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
           >
-            Choose your payment method
+            Choose your payment method!
           </MKTypography>
         </Container>
-        <MKBox py={2} px={1} textAlign="center" lineHeight={2}>
-          <MKButton py={2} px={1} mx={1}>
+
+        <MKBox pt={1} px={1} textAlign="center" lineHeight={2}>
+          <MKButton py={2} px={1} mx={1} fullWidth disabled={!AGBState}>
             Paypal
           </MKButton>
-          <MKButton py={2} px={1} mx={1} onClick={triggerPayment}>
+        </MKBox>
+        <MKBox py={1} px={1} textAlign="center" lineHeight={2}>
+          <MKButton
+            py={1}
+            px={1}
+            mx={1}
+            fullWidth
+            disabled={!AGBState}
+            onClick={triggerPayment}
+          >
             Credit Card
           </MKButton>
+        </MKBox>
+        <MKBox py={0} px={1} textAlign="center">
+          <input type="checkbox" checked={AGBState} onChange={toggleAGBState} />
+          <MKTypography
+            px={1}
+            py={0}
+            variant="string"
+            color="white"
+            fontSize={12}
+            verticalAlign="center"
+
+            //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
+          >
+            I have read and accept the ABG.
+          </MKTypography>
         </MKBox>
       </MKBox>
     </MKBox>
