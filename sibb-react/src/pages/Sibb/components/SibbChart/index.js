@@ -1,4 +1,3 @@
-import { format, parseISO } from "date-fns";
 import React, { useEffect, useState } from "react";
 import {
   ResponsiveContainer,
@@ -9,6 +8,76 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
+import moment from "moment";
+import MKBox from "../../../../components/MKBox";
+import MKTypography from "../../../../components/MKTypography";
+import Grid from "@mui/material/Grid";
+import "./sibbToolTip.scss";
+
+const CustomTooltip2 = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <MKBox
+        bgColor="white"
+        variant="contained"
+        borderRadius="none"
+        borderColor="red"
+        opacity={0.7}
+        shadow="lg"
+        p={0}
+      >
+        <Grid container spacing={0}>
+          <Grid item mr={4} xs={4} lg={4}>
+            <MKTypography
+              variant="string"
+              color="black"
+              fontSize={14}
+              //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
+            >
+              {`${moment(label).format("DD/MM")}`}
+            </MKTypography>
+          </Grid>
+          <Grid item mr={4} xs={4} lg={4}>
+            <MKTypography
+              variant="string"
+              color="black"
+              fontSize={14}
+              align="right"
+              //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
+            >
+              {`${moment(label).format("hh:mm")}`}
+            </MKTypography>
+          </Grid>
+        </Grid>
+        <Grid item mr={4} xs={4} lg={4}>
+          <MKTypography
+            variant="string"
+            color="black"
+            fontSize={13}
+            //fontFamily='"Brush Script MT", "Helvetica", "Arial", sans-serif'
+          >
+            {payload[0].value.toFixed(2)}
+          </MKTypography>
+        </Grid>
+      </MKBox>
+    );
+  }
+
+  return null;
+};
+
+const CustomTooltip = ({ payload, label, active }) => {
+  if (active) {
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${moment(label).format("DD/MM hh:mm")}`}</p>
+        <p className="desc"> {payload[0].value.toFixed(2)}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 class SibbChart extends React.Component {
   constructor(props) {
@@ -17,7 +86,7 @@ class SibbChart extends React.Component {
     this.metric = this.props.metric;
     this.state = {
       data: {},
-      yWidth: {},
+      decimals: {},
     };
     this.sessionId = this.props.sessionId;
   }
@@ -34,7 +103,7 @@ class SibbChart extends React.Component {
       );
       const resjson = await res.json();
       this.setState({ data: resjson });
-      this.setState({ yWidth: this.longestLabelLength() });
+      this.setState({ decimals: 5 - this.longestLabelLength() });
 
       //setData(data)
       //setdata(data?.data);
@@ -54,8 +123,8 @@ class SibbChart extends React.Component {
     for (const [key, value] of Object.entries(this.state.data)) {
       if (key === this.metric) {
         for (const [k, v] of Object.entries(value)) {
-          //console.log(Math.round(v.value).toString().length * 15);
-          return Math.round(v.value).toString().length * 15;
+          console.log(Math.round(v.value).toString().length);
+          return Math.round(v.value).toString().length;
         }
       }
     }
@@ -80,12 +149,7 @@ class SibbChart extends React.Component {
             axisLine={true}
             tickLine={false}
             tickFormatter={(str) => {
-              const date = parseISO(str);
-              if (parseInt((date.getTime() / 1000).toFixed(0)) % 600 < 10) {
-                console.log(parseInt((date.getTime() / 1000).toFixed(0)));
-                return format(date, "MMM, d, HH:MM");
-              }
-              return "";
+              return moment(str).format("hh:mm");
             }}
           />
 
@@ -99,7 +163,10 @@ class SibbChart extends React.Component {
             tickFormatter={(number) => `${number.toFixed(0)}`}
           />
 
-          <Tooltip />
+          <Tooltip
+            wrapperStyle={{ outline: "none" }}
+            content={<CustomTooltip />}
+          />
 
           <CartesianGrid opacity={0.1} vertical={false} />
         </AreaChart>
