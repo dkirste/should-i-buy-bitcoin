@@ -486,6 +486,12 @@ function SibbNavbar({
     </Popper>
   );
 
+  const showRefferalAlert = () => {
+    alert(
+      "Please contact our sales team to create your own referral code. Sales Team: info@should-i-buy-bitcoin.com"
+    );
+  };
+
   return (
     <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
       <MKBox
@@ -557,7 +563,7 @@ function SibbNavbar({
               ) : (
                 <MKButton
                   component="a"
-                  href={action.route}
+                  onClick={showRefferalAlert}
                   target="_blank"
                   rel="noreferrer"
                   variant={
