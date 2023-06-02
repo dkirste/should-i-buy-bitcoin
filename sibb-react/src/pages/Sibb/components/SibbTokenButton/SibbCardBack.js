@@ -42,7 +42,7 @@ function SibbCardBack({ content }) {
 
   const retrieveNewSession = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/checkout/" + tokenName + "/" + refCode
+      "http://85.214.130.182:5000/checkout/" + tokenName + "/" + refCode
     );
     return await res.json();
   };

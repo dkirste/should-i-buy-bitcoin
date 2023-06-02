@@ -94,7 +94,7 @@ class SibbChart extends React.Component {
   componentDidMount() {
     const fetchDatas = async () => {
       const res = await fetch(
-        "http://127.0.0.1:5000/" +
+        "http://85.214.130.182:5000/" +
           this.selectedCoin +
           "/" +
           this.metric +

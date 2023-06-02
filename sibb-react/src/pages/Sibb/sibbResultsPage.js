@@ -61,7 +61,7 @@ function SibbResults() {
     let token = "none";
     if (sessionId !== undefined) {
       const res = await fetch(
-        "http://127.0.0.1:5000/checkpayment/" + sessionId
+        "http://85.214.130.182:5000/checkpayment/" + sessionId
       );
       const resString = await res.json();
       console.log(resString);
