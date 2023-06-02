@@ -14,6 +14,34 @@ def bitcoin_price_value(measurement, stribeSessionId):
     status, token = stribe_lib.check_payment_status(stribeSessionId, stripe.api_key)
     if status == 'paid':
         pass
+    elif stribeSessionId == 'test':
+        pass
+    else:
+        return ""
+        #return ""
+    # Create influx query api
+    query_api = influx_lib.setup_influx_query()
+
+    # get latest results of the api
+    query = f'''
+            from(bucket: "tradingviewdata")
+              |> range(start: -15m)
+              |> filter(fn: (r) => r["_measurement"] == "{measurement}")
+              |> filter(fn: (r) => r["_field"] == "field1")
+              |> filter(fn: (r) => r["pair"] == "btcusdt")
+          '''
+    influx_res = query_api.query(query=query, org="sibb")
+    fin_res = influx_lib.transform_data_structure(influx_res)
+    return fin_res
+
+@app.route('/v2/bitcoin/<measurement>/<stribeSessionId>')
+@cross_origin()
+def bitcoin_price_value_v2(measurement, stribeSessionId):
+    status, token = stribe_lib.check_payment_status(stribeSessionId, stripe.api_key)
+    if status == 'paid':
+        pass
+    elif stribeSessionId == 'test':
+        pass
     else:
         return ""
         #return ""
@@ -29,14 +57,16 @@ def bitcoin_price_value(measurement, stribeSessionId):
               |> filter(fn: (r) => r["pair"] == "btcusdt")
           '''
     influx_res = query_api.query(query=query, org="sibb")
-    fin_res = influx_lib.transform_data_structure(influx_res)
+    fin_res = influx_lib.transform_data_structure_v2(influx_res)
     return fin_res
 
 
-@app.route('/checkout/<selectedCoin>', methods=['GET'])
+@app.route('/checkout/<selectedCoin>/<refCode>', methods=['GET'])
 @cross_origin()
-def checkout(selectedCoin):
+def checkout(selectedCoin, refCode):
+    print(selectedCoin)
     selectedCoin = selectedCoin.lower()
+    refCode = refCode.lower()
     checkout_session = stripe.checkout.Session.create(
         line_items=[
             {
@@ -55,7 +85,8 @@ def checkout(selectedCoin):
         mode='payment',
         success_url='http://127.0.0.1:3000/analysis?id={CHECKOUT_SESSION_ID}',
         cancel_url='http://127.0.0.1:3000',
-        metadata={'token':f"{selectedCoin}"}
+        metadata={'token':f"{selectedCoin}",
+                  'refCode':f"{refCode}"}
     )
     print(checkout_session)
     return checkout_session

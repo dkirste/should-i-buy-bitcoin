@@ -14,7 +14,6 @@ def setup_influx_query():
 def transform_data_structure(influx_result):
     records = json.loads(influx_result.to_json())
     new_result={}
-    index = {}
     for record in records:
         if record['_measurement'] in new_result.keys():
             new_result[record['_measurement']].append({'time': record['_time'],'value': record['_value']})
@@ -25,6 +24,20 @@ def transform_data_structure(influx_result):
 
 
     return new_result
+
+def transform_data_structure_v2(influx_result):
+    records = json.loads(influx_result.to_json())
+    new_result={}
+    for record in records:
+        if "value" in new_result.keys():
+            new_result["value"][record['_time']] = record['_value']
+
+        else:
+            new_result["value"] = {}
+            new_result["value"][record['_time']] = record['_value']
+
+    return new_result
+
 
 if __name__ == "__main__":
     query_api = setup_influx_query()
