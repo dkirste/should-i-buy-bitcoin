@@ -105,7 +105,7 @@ function SibbCardBack({ content }) {
           </MKTypography>
         </Container>
 
-        <MKBox mx={4} pt={1} px={1} textAlign="center" lineHeight={2}>
+        <MKBox mx={5} pt={1} px={1} textAlign="center" lineHeight={2}>
           <MKButton
             variant="gradient"
             color="info"
@@ -118,7 +118,7 @@ function SibbCardBack({ content }) {
             Paypal
           </MKButton>
         </MKBox>
-        <MKBox mx={4} py={1} px={1} textAlign="center" lineHeight={2}>
+        <MKBox mx={5} py={1} px={1} textAlign="center" lineHeight={2}>
           <MKButton
             variant="gradient"
             color="info"

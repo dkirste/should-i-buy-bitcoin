@@ -110,7 +110,7 @@ export default {
         variant="button"
         fontWeight="regular"
       >
-        SIBB
+        Creative Tim
       </MKTypography>
       .
     </MKTypography>
