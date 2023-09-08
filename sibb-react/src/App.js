@@ -29,6 +29,7 @@ import theme from "assets/theme";
 import routes from "routes";
 import SibbMainPage from "./pages/Sibb/sibbMainPage";
 import SibbResultsPage from "./pages/Sibb/sibbResultsPage";
+import SibbReferralPage from "./pages/Sibb/sibbReferralPage";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -66,6 +67,7 @@ export default function App() {
         {getRoutes(routes)}
         <Route path="/" element={<SibbMainPage />} />
         <Route path="/analysis" element={<SibbResultsPage />} />
+        <Route path="/create-your-referral" element={<SibbReferralPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>

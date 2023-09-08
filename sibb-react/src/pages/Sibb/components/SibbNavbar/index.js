@@ -563,7 +563,7 @@ function SibbNavbar({
               ) : (
                 <MKButton
                   component="a"
-                  onClick={showRefferalAlert}
+                  //onClick={showRefferalAlert}
                   target="_blank"
                   rel="noreferrer"
                   variant={
@@ -573,6 +573,7 @@ function SibbNavbar({
                   }
                   color={action.color ? action.color : "info"}
                   size="small"
+                  href="/create-your-referral"
                 >
                   {action.label}
                 </MKButton>
